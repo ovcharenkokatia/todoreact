@@ -8,6 +8,14 @@ module.exports = {
     filename: "./js/bundle.js"
   },
   module: {
+    preLoaders: [
+      {
+        test: /(\.js$|\.jsx$)/,
+        exclude: /node_modules/,
+        loader: "eslint-loader"
+      }
+    ],
+
     loaders: [
       {test: /\.õ/, loader: "style!css"},
       {
@@ -20,5 +28,8 @@ module.exports = {
         loader: "file?name=[name].[ext]"
       }
     ]
+  },
+  eslint: {
+    configFile: '.eslintrc'
   }
 };

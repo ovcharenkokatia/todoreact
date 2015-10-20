@@ -2,14 +2,14 @@ var webpack = require('webpack'),
     HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: "./js/index.js",
+  entry: "./index.js",
   output: {
     path: __dirname,
     filename: "./js/bundle.js"
   },
   module: {
     loaders: [
-      {test: /\.css$/, loader: "style!css"},
+      {test: /\.õ/, loader: "style!css"},
       {
         test: /(\.js$|\.jsx$)/,
         exclude: /node_modules/,

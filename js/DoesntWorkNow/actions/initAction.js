@@ -1,6 +1,6 @@
 "use strict";
 
-import AppDispatcher from './../dispatcher/dispatcher.js';
+import AppDispatcher from '../doesntWorkNow/dispatcher/dispatcher.js';
 import ActionTypes from './actionTypes.js';
 
 var InitializeActions = {

@@ -1,20 +1,32 @@
-import React from 'react';
+"use strict";
 
-import ToDoItem from './ToDoItem';
+import React, {Component} from 'react';
 
-let ToDoList = React.createClass({
+class TodoList extends React.Component {
 
-  // after changing "this.props", the render method should be called again and we have sth new on the screen
+  // es7 example
+  //test(){
+  //     console.log(this);
+  //}
 
-  render: function () {
+  render() {
+    var { todos, onDelete } = this.props;
+    var rows = todos.map((value, index) => {
+      return (
+          <li key={index}
+          onClick={onDelete.bind(null, value, todos)}>Todo {value}
+          </li>);
+
+      // es7 example
+      //<li key={index}
+      //    onClick={::this.test}>Todo {value}
+      //</li>);
+    });
+
     return (
-        <div className="toDoItem">
-          <ul>
-            <li><ToDoItem /></li>
-          </ul>
-        </div>
-    )
+        <ul>{rows}</ul>
+    );
   }
-});
+}
 
-export default ToDoList;
+export default TodoList;

@@ -3,6 +3,10 @@
 import React, {Component} from 'react';
 import TodoList from './TodoList.js';
 import TodoInput from './TodoInput.js';
+import TodoActions from '../actions/todoActions.js'
+
+
+//import "./Todo.css";
 
 class Todo extends Component {
   constructor(props) {
@@ -24,6 +28,8 @@ class Todo extends Component {
     );
   }
 
+
+
   _deleteTodo(todo, todos) {
     this.setState({
       todoItems: todos.filter(value => {
@@ -32,11 +38,17 @@ class Todo extends Component {
     })
   }
 
-  _saveTodo(todo, todos) {
-    this.setState({
-      todoItems: todos.concat(todo)
-    });
-  }
+  _saveTodo (event, newTodo) {
+    TodoActions.createTodo(this.state.todo);
+    console.log(event11);
+
+}
+
+  //_saveTodo(todo, todos) {
+  //  this.setState({
+  //    todoItems: todos.concat(todo)
+  //  });
+  //}
 }
 
 export default Todo;

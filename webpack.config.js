@@ -17,7 +17,6 @@ module.exports = {
     ],
 
     loaders: [
-      {test: /\.õ/, loader: "style!css"},
       {
         test: /(\.js$|\.jsx$)/,
         exclude: /node_modules/,
@@ -26,6 +25,9 @@ module.exports = {
       {
         test: /\.html$/,
         loader: "file?name=[name].[ext]"
+      },
+      { test: /\.css$/,
+        loader: ["css-loader", "file-loader"]
       }
     ]
   },

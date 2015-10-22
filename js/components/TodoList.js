@@ -1,19 +1,27 @@
 "use strict";
 
-import React, {Component} from 'react';
+import React, {PropTypes, Component} from 'react';
+import TodoItem from './TodoItem.js';
+import {deleteTodo} from '../actions/todoActions.js';
 
-class TodoList extends React.Component {
+class TodoList extends Component {
+  static propTypes = {
+    todos: PropTypes.array.isRequired
+  };
+
+  deleteHandler(todoItemId) {
+    deleteTodo(todoItemId)
+  }
+
   render() {
-    let { todos, onDelete } = this.props;
-    let rows = todos.map((value, index) => {
-      return (
-          <li key={index}
-          onClick={onDelete.bind(null, value, todos)}>Todo {value}
-          </li>);
-    });
-
     return (
-        <ul>{rows}</ul>
+        <div>
+          <ul>{(this.props.todos || []).map((data, index) =>
+              <TodoItem key={index} deleteHandler={this.deleteHandler}
+                  {...data}
+              />)}
+          </ul>
+        </div>
     );
   }
 }

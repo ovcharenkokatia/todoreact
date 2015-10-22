@@ -1,33 +1,28 @@
-//"use strict";
+import React, {Component} from 'react';
+import {createTodo} from '../actions/todoActions.js';
 
+class TodoInput extends Component {
+  createHandler() {
+    let newTodo = React.findDOMNode(this.refs.newTodo).value;
+    createTodo(newTodo);
 
-//import React, {Component} from 'react';
-//import TodoList from './TodoList.js';
-//
-//require('Todo.css');
+    React.findDOMNode(this.refs.newTodo).value = "";
+  }
 
-//class TodoInput extends Component {
-//  render () {
-//    return (
-//        <div>
-//          <input ref = "newTodo" type = "text" placeholder="Add new todo" />
-//          <button onClick={::this.saveTodo}> Add </button>
-//        </div>
-//    );
-//  }
+  render () {
+    return (
+        <div>
+          <input
+              placeholder="Add new todo"
+              ref = "newTodo"
+              type = "text"
+          />
+          <button onClick={::this.createHandler}>
+            Add
+          </button>
+        </div>
+    );
+  }
+}
 
-  //saveTodo() {
-  //  this.setState
-  //}
-
-  //saveTodo() {
-  //  let { onSave, todos }= this.props;
-  //  let value = React.findDOMNode(this.refs.newTodo).value;
-  //
-  //  React.findDOMNode(this.refs.newTodo).value = null;
-  //  onSave(value, todos);
-  //}
-//}
-
-//export default TodoInput;
-//
+export default TodoInput;

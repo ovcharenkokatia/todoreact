@@ -10,7 +10,7 @@ class Todo extends Component {
     todoItems: []
   };
 
-  componentWillMount() {
+  componentDidMount() {
     TodoStore.addChangeListener(::this.onTodosChange);
     this.setTodos();
   }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {createTodo} from '../actions/todoActions.js';
+import TodoStore from '../stores/todoStore.js';
 
 class TodoInput extends Component {
   createHandler() {
@@ -16,7 +17,7 @@ class TodoInput extends Component {
               placeholder="Add new todo"
               ref = "newTodo"
               type = "text"
-          />
+              />
           <button onClick={::this.createHandler}>
             Add
           </button>

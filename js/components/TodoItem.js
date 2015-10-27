@@ -24,6 +24,7 @@ class TodoItem extends Component {
     });
 
     React.findDOMNode(this.refs.updateCompletion).checked ? this.state.completed = true : this.state.completed = false;
+
     this.state.value = this.refs.updateTodo.value;
     this.props.updateTodoHandler(this.state);
   }
@@ -32,9 +33,9 @@ class TodoItem extends Component {
     return (
         <div>
           <li> <input defaultValue = {this.props.value} ref = "updateTodo"/>
-            <button onClick={::this.deleteHandler}> Delete </button>
-            <button onClick={::this.updateTodoHandler}> Update </button>
-            Completed <input type="checkbox" ref="updateCompletion" onClick={::this.updateTodoHandler}/>
+            <button className="deleteBtn" onClick={::this.deleteHandler}> Delete </button>
+            <button className="updateBtn" onClick={::this.updateTodoHandler}> Update </button>
+            Completed <input className="completionStatus" type="checkbox" ref="updateCompletion" onClick={::this.updateTodoHandler}/>
           </li>
         </div>
     );

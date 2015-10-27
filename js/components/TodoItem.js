@@ -5,7 +5,12 @@ class TodoItem extends Component {
     deleteHandler: PropTypes.func.isRequired,
     id: PropTypes.number,
     value: PropTypes.string,
-    taskCompletion: PropTypes.boolean
+    completed: PropTypes.boolean
+  };
+
+  state = {
+    value: this.props.value,
+    completed: this.props.completed
   };
 
   deleteHandler() {
@@ -13,17 +18,20 @@ class TodoItem extends Component {
   }
 
   updateTodoHandler() {
-    this.props.value = React.findDOMNode(this.refs.updateTodo).value;
-    React.findDOMNode(this.refs.updateCompletion).checked ? this.props.completed = true : this.props.completed = false;
+    this.setState({
+      value: React.findDOMNode(this.refs.updateTodo).value,
+      id: this.props.id
+    });
 
-    this.state = this.props.value;
-    this.props.updateTodoHandler(this.props);
+    React.findDOMNode(this.refs.updateCompletion).checked ? this.state.completed = true : this.state.completed = false;
+    this.state.value = this.refs.updateTodo.value;
+    this.props.updateTodoHandler(this.state);
   }
 
   render() {
     return (
         <div>
-          <li> <input disabled={!this.state} defaultValue = {this.props.value} ref = "updateTodo"/>
+          <li> <input defaultValue = {this.props.value} ref = "updateTodo"/>
             <button onClick={::this.deleteHandler}> Delete </button>
             <button onClick={::this.updateTodoHandler}> Update </button>
             Completed <input type="checkbox" ref="updateCompletion" onClick={::this.updateTodoHandler}/>
@@ -34,8 +42,3 @@ class TodoItem extends Component {
 }
 
 export default TodoItem;
-
-
-
-//className={this.state.is ? '' : ''} disabled="disabled" //to change class
-//<button onClick={::this.getTodoByIdHandler}>Edit </button>

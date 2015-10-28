@@ -4,6 +4,7 @@ import AppDispatcher from '../dispatcher/dispatcher.js';
 import {DELETE_TODO} from '../constants/actionTypes.js';
 import {CREATE_TODO} from '../constants/actionTypes.js';
 import {EDIT_TODO} from '../constants/actionTypes.js';
+import {EDIT_TODO_STATE} from '../constants/actionTypes.js';
 import {GET_TODO_BY_ID} from '../constants/actionTypes.js';
 import {EventEmitter} from 'events';
 
@@ -53,9 +54,19 @@ class TodoStore extends EventEmitter {
   updateTodo(newTodo) {
     if (newTodo.id) {
       for (let i = 0; i < todoArray.length; i++) {
-        if (newTodo.id == todoArray[i].id) {
+        if (newTodo.id === todoArray[i].id) {
           todoArray[i].value = newTodo.value;
-          todoArray[i].completed = newTodo.completed;
+          this.emit(CHANGE_EVENT);
+        }
+      }
+    }
+  }
+
+  updateTodoState(todo) {
+    if (todo.id) {
+      for (let i = 0; i < todoArray.length; i++) {
+        if (todo.id === todoArray[i].id) {
+          todoArray[i].completed = todo.completed;
           this.emit(CHANGE_EVENT);
         }
       }
@@ -83,6 +94,9 @@ AppDispatcher.register((action => {
       break;
     case EDIT_TODO:
       todoStore.updateTodo(action.todoItemId);
+      break;
+    case EDIT_TODO_STATE:
+      todoStore.updateTodoState(action.todoItemId);
       break;
   }
 }));

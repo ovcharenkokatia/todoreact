@@ -9,10 +9,10 @@ describe("Todo", () => {
 
     spyOn(Todo.prototype, 'setTodos');
 
-    TodoStore.createTodo({id: 3, value: "k9I0", completed: true});
+    TodoStore.createTodo({id: 2, value: "k9I0", completed: true});
 
     let todoItemsLength = todoComponent.state.todoItems.length;
     expect(todoComponent.setTodos).toHaveBeenCalled();
-    expect(todoItemsLength).toEqual(3)
+    expect(todoItemsLength).toEqual(4)
   })
 });

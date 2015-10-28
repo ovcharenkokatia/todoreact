@@ -2,6 +2,7 @@
 
 import AppDispatcher from '../dispatcher/dispatcher.js';
 import {EDIT_TODO} from '../constants/actionTypes.js';
+import {EDIT_TODO_STATE} from '../constants/actionTypes.js';
 import {DELETE_TODO} from '../constants/actionTypes.js';
 import {CREATE_TODO} from '../constants/actionTypes.js';
 
@@ -22,6 +23,12 @@ export function createTodo (newTodo) {
 export function updateTodo (todoItemId) {
   AppDispatcher.dispatch({
     actionType: EDIT_TODO,
+    todoItemId
+  });
+
+}export function updateTodoState (todoItemId) {
+  AppDispatcher.dispatch({
+    actionType: EDIT_TODO_STATE,
     todoItemId
   });
 }

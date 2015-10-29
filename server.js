@@ -1,16 +1,18 @@
-const express = require('express');
-const webpack = require('webpack');
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const config = require('./webpack.config.js');
-const path = require('path');
+import express from 'express';
+import webpack from 'webpack';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import config from './webpack.config.js';
+import path from 'path';
 
-//const graphql = require('graphql');
-//const expressGraphql = require('express-graphql');
-//const Schema = require('./src/server/schema.js');
+import schema from './src/server/schema.js';
+import graphql from 'graphql';
+import expressGraphql from 'express-graphql';
 
 const port = 3000;
 const app = express();
+
+console.log(schema);
 
 app.use(express.static(__dirname + '/assets/index.html'));
 
@@ -28,10 +30,10 @@ app.use(webpackMiddleware(compiler, {
   }
 }));
 
-//app.use('/', expressGraphql({
-//  schema: Schema,
-//  graphiql: true
-//}));
+app.use('/graphql', expressGraphql({
+  schema: schema,
+  graphiql: true
+}));
 
 app.use(webpackHotMiddleware(compiler));
 

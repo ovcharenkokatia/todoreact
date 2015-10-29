@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React, {Component, ReactDOM} from 'react';
 import {createTodo} from '../actions/todoActions.js';
 import TodoStore from '../stores/todoStore.js';
 
 class TodoInput extends Component {
   createHandler() {
-    let newTodo = React.findDOMNode(this.refs.newTodo).value;
+    let newTodo = ReactDOM.findDOMNode(this.refs.newTodo).value;
     createTodo(newTodo);
 
-    React.findDOMNode(this.refs.newTodo).value = "";
+    ReactDOM.findDOMNode(this.refs.newTodo).value = "";
   }
 
   render () {

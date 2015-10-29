@@ -1,6 +1,7 @@
 {
   "name": "webpack-example",
   "scripts": {
+    "start": "babel-node server.js",
     "build": "webpack --progress --profile --colors",
     "watch": "webpack-dev-server",
     "test": "karma start"
@@ -49,5 +50,8 @@
     "webpack-dev-middleware": "^1.2.0",
     "webpack-dev-server": "^1.8.0",
     "webpack-hot-middleware": "^2.4.1"
+  },
+  "devDependencies": {
+    "babel": "^5.8.29"
   }
 }

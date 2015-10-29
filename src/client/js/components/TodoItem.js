@@ -1,4 +1,4 @@
-import React, {PropTypes, Component} from 'react'
+import React, {PropTypes, Component, ReactDOM} from 'react'
 
 class TodoItem extends Component {
   static propTypes = {
@@ -6,8 +6,7 @@ class TodoItem extends Component {
     deleteHandler: PropTypes.func.isRequired,
     updateTodoHandler: PropTypes.func.isRequired,
     updateTodoStateHandler: PropTypes.func.isRequired,
-    value: PropTypes.string,
-    completed: PropTypes.boolean
+    value: PropTypes.string
   };
 
   deleteHandler() {

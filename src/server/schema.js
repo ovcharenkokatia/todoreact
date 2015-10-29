@@ -1,42 +1,42 @@
-import TodoList from './../client/js/components/TodoList.js';
+import data from './data.json';
 import {
-    GraphQLInt,
-    GraphQLFloat,
-    GraphQLString,
-    GraphQLList,
-    GraphQLObjectType,
-    GraphQLEnumType,
-    GraphQLNonNull,
-    GraphQLSchema,
-    GraphQLBoolean
+GraphQLInt,
+GraphQLFloat,
+GraphQLString,
+GraphQLObjectType,
+GraphQLEnumType,
+GraphQLNonNull,
+GraphQLSchema,
+GraphQLBoolean,
+GraphQLList
 } from 'graphql';
 
-const Todo = new GraphQLObjectType({
-  name: "Todo",
+
+let todoType = new GraphQLObjectType({
+  name: "todo",
   description: "This represent a todo",
   fields: () => ({
-    _id: {type: new GraphQLNonNull(GraphQLString)},
+    id: {type: new GraphQLNonNull(GraphQLString)},
     value: {type: GraphQLString},
     completed: {type: GraphQLBoolean}
   })
 });
 
-const Query = new GraphQLObjectType({
-  name: "Query",
-  fields: () => ({
-    viewer: {
-      type: Todo,
-      resolve() {
-        return {
-          id: 1
+let schema = new GraphQLSchema({
+  query: new GraphQLObjectType({
+    name: 'Query',
+    fields: {
+      todo: {
+        type: todoType,
+        args: {
+          id: { type: GraphQLString }
+        },
+        resolve: function (_, args) {
+          return data[args.id];
         }
       }
     }
   })
 });
 
-const Schema = new GraphQLSchema({
-  query: Query
-});
-
-export default Schema;
+export default schema;

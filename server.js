@@ -5,29 +5,15 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from './webpack.config.js';
 import path from 'path';
 
-import schema from './src/server/schema.js';
-import graphql from 'graphql';
+import schema from './src/server/graphql/schema.js';
 import expressGraphql from 'express-graphql';
 
 const port = 3000;
 const app = express();
-
-console.log(schema);
-
-app.use(express.static(__dirname + '/assets/index.html'));
-
 const compiler = webpack(config);
 
 app.use(webpackMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-  stats: {
-    colors: true,
-    hash: false,
-    timings: true,
-    chunks: false,
-    chunkModules: false,
-    modules: false
-  }
+  publicPath: config.output.publicPath
 }));
 
 app.use('/graphql', expressGraphql({

@@ -6,8 +6,8 @@ import {
     GraphQLList
 } from 'graphql';
 
-let todo = new GraphQLObjectType({
-  name: "todo",
+let Todo = new GraphQLObjectType({
+  name: "Todo",
   description: "This represent a todo",
   fields: () => ({
     id: {
@@ -22,4 +22,4 @@ let todo = new GraphQLObjectType({
   })
 });
 
-export default todo;
+export default Todo;

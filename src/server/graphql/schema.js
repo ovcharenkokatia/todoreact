@@ -1,6 +1,6 @@
 import data from './../data.json';
-import todo from './fields/todoItem.js';
-import todoList from './fields/todoList.js';
+import Todo from './fields/todoItem.js';
+import TodoList from './fields/todoList.js';
 
 import {
     GraphQLSchema,
@@ -10,12 +10,12 @@ import {
     GraphQLList
 } from 'graphql';
 
-let schema = new GraphQLSchema({
+let Schema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
     fields: {
-      todoList: {
-        type: todoList,
+      TodoList: {
+        type: TodoList,
         itemType: GraphQLObjectType,
         resolve: function () {
           return [{
@@ -31,8 +31,8 @@ let schema = new GraphQLSchema({
         }
       },
 
-      todo: {
-        type: todo,
+      Todo: {
+        type: Todo,
         args: {
           id: {
             type: GraphQLString
@@ -46,4 +46,4 @@ let schema = new GraphQLSchema({
   })
 });
 
-export default schema;
+export default Schema;

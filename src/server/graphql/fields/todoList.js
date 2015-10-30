@@ -1,7 +1,7 @@
 import {GraphQLList} from 'graphql';
 
-import todo from './todoItem.js';
+import Todo from './todoItem.js';
 
-let todoList = new GraphQLList (todo);
+let TodoList = new GraphQLList (Todo);
 
-export default todoList;
+export default TodoList;

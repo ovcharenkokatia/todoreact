@@ -5,7 +5,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from './webpack.config.js';
 import path from 'path';
 
-import schema from './src/server/graphql/schema.js';
+import Schema from './src/server/graphql/schema.js';
 import expressGraphql from 'express-graphql';
 
 const port = 3000;
@@ -17,7 +17,7 @@ app.use(webpackMiddleware(compiler, {
 }));
 
 app.use('/graphql', expressGraphql({
-  schema: schema,
+  schema: Schema,
   graphiql: true
 }));
 

@@ -5,8 +5,11 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from './webpack.config.js';
 import path from 'path';
 
-import Schema from './src/server/graphql/schema.js';
+import Schema from './src/server/graphql/schemas/todoSchema.js';
 import expressGraphql from 'express-graphql';
+
+import foodSchema from './src/server/graphql/schemas/foodSchema.js';
+console.log(foodSchema);
 
 const port = 3000;
 const app = express();
@@ -17,7 +20,7 @@ app.use(webpackMiddleware(compiler, {
 }));
 
 app.use('/graphql', expressGraphql({
-  schema: Schema,
+  schema: foodSchema,
   graphiql: true
 }));
 

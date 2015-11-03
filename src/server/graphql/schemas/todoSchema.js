@@ -1,6 +1,6 @@
-import data from './../data.json';
-import Todo from './fields/todoItem.js';
-import TodoList from './fields/todoList.js';
+import data from './../../todoData.json';
+import Todo from './../fields/todo/todoItem.js';
+import TodoList from './../fields/todo/todoList.js';
 
 import {
     GraphQLSchema,

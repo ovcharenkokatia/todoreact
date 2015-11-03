@@ -120,13 +120,28 @@ let foodPlaceType = new GraphQLObjectType ({
 
 //connections
 let {connectionType: menuConnection} =
-  connectionDefinitions({name: 'placeMenu', nodeType: menuType});
+  connectionDefinitions(
+    {
+      name: 'placeMenu',
+      nodeType: menuType
+    }
+  );
 
 let {connectionType: placeTypeConnection} =
-  connectionDefinitions({name: 'placeType', nodeType: foodPlaceType});
+  connectionDefinitions(
+    {
+      name: 'placeType',
+      nodeType: foodPlaceType
+    }
+  );
 
 let {connectionType: placeNamesConnection} =
-  connectionDefinitions({name: 'placeNames', nodeType: placesNames});
+  connectionDefinitions(
+    {
+      name: 'placeNames',
+      nodeType: placesNames
+    }
+  );
 
 //query type
 let queryType = new GraphQLObjectType({

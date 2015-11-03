@@ -9,7 +9,6 @@ import Schema from './src/server/graphql/schemas/todoSchema.js';
 import expressGraphql from 'express-graphql';
 
 import foodSchema from './src/server/graphql/schemas/foodSchema.js';
-console.log(foodSchema);
 
 const port = 3000;
 const app = express();

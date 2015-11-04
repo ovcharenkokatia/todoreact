@@ -46,8 +46,7 @@ let placesDescriptions = new GraphQLObjectType({
   fields: () => ({
     id: globalIdField('placesDescriptions'),
     name: {
-      type: GraphQLString,
-      description: 'The name of the ship.'
+      type: GraphQLString
     },
     menu: {
       type: GraphQLString,

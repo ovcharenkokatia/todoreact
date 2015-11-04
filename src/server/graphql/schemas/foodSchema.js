@@ -78,11 +78,11 @@ let foodPlaceType = new GraphQLObjectType ({
     id: globalIdField('foodPlaceType'),
     name: {
       type: new GraphQLNonNull(GraphQLString),
-      description: 'The name of the place.'
+      description: 'The type of the food place.'
     },
     places: {
       type: placesDescriptionsConnection,
-      description: "The names of the places of the selected type",
+      description: "Descriptions of the places",
       args: connectionArgs,
       resolve: (place, args) => connectionFromArray(
         place.places.map((id) => getPlace(id)),

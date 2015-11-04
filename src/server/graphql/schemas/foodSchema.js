@@ -18,7 +18,6 @@ import {
 
 import {
   getPlace,
-  getMenu,
   getFoodPlaceType,
   getFastFood,
   getRestaurant,
@@ -32,60 +31,26 @@ let {nodeInterface, nodeField} = nodeDefinitions(
       return getFoodPlaceType(id);
     } else if (type === 'Places') {
       return getPlace(id);
-    } else if (type === "Menus") {
-      return getMenu(id);
     } else {
       return null;
     }
   },
   (obj) => {
-    let result;
-
-    if (obj.places) {
-      result = foodPlaceType
-    } else if (obj.price) {
-      result = menuType
-    } else {
-      result = placesNames
-    }
-    return result;
+    return obj.places ? foodPlaceType : placesDescription;
   }
 );
 
-//types
-let menuType = new GraphQLObjectType({
-  name: 'Menus',
-  fields: () => ({
-    id: globalIdField('Menus'),
-    label: {
-      type: GraphQLString
-    },
-    price: {
-      type: GraphQLFloat
-    }
-  }),
-  resolve: (menu, args) => connectionFromArray(
-    menu.menu.map((id) => getMenu(id)),
-    args
-  )
-});
-
-let placesNames = new GraphQLObjectType({
-  name: 'placesNames',
+let placesDescriptions = new GraphQLObjectType({
+  name: 'placesDescriptions',
   description: 'places descriptions of different types',
   fields: () => ({
-    id: globalIdField('placesNames'),
+    id: globalIdField('placesDescriptions'),
     name: {
       type: GraphQLString,
       description: 'The name of the ship.'
     },
     menu: {
-      type: menuConnection,
-      args: connectionArgs,
-      resolve: (menu, args) => connectionFromArray(
-        menu.menu.map((id) => getMenu(id)),
-        args
-      )
+      type: GraphQLString
     },
     location: {
       type: GraphQLString
@@ -118,28 +83,12 @@ let foodPlaceType = new GraphQLObjectType ({
   interfaces: [nodeInterface]
 });
 
-//connections
-let {connectionType: menuConnection} =
-  connectionDefinitions(
-    {
-      name: 'placeMenu',
-      nodeType: menuType
-    }
-  );
-
-let {connectionType: placeTypeConnection} =
-  connectionDefinitions(
-    {
-      name: 'placeType',
-      nodeType: foodPlaceType
-    }
-  );
-
+//connection
 let {connectionType: placeNamesConnection} =
   connectionDefinitions(
     {
-      name: 'placeNames',
-      nodeType: placesNames
+      name: 'placesDescriptions',
+      nodeType: placesDescriptions
     }
   );
 
@@ -165,4 +114,3 @@ let foodSchema = new GraphQLSchema({
 });
 
 module.exports = foodSchema;
-

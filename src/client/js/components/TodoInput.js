@@ -10,7 +10,7 @@ class TodoInput extends Component {
     ReactDOM.findDOMNode(this.refs.newTodo).value = "";
   }
 
-  render () {
+  render() {
     return (
         <div>
           <input

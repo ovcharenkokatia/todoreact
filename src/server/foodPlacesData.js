@@ -6,12 +6,12 @@ let mac = {
     {
       id: 1,
       label: 'burger',
-      price: '30'
+      price: 30.1
     },
     {
       id: 2,
       label: 'potato',
-      price: '20'
+      price: 30.1
     }
   ],
   location: "youWillFindMeEverywhere",
@@ -25,12 +25,12 @@ let felicita = {
     {
       id: 1,
       label: 'pizza',
-      price: '30'
+      price: 30.1
     },
     {
       id: 2,
       label: 'pasta',
-      price: '20'
+      price: 20.0
     }
   ],
   location: "i'm nearby Globa park",
@@ -44,12 +44,12 @@ let coast = {
     {
       id: 1,
       label: 'ice-cream',
-      price: '30'
+      price: 25.2
     },
     {
       id: 2,
       label: 'coffee',
-      price: '20'
+      price: 25.2
     }
   ],
   location: "you will find me between 20 porches",
@@ -63,12 +63,12 @@ let kfc = {
     {
       id: 1,
       label: 'chicken-burger',
-      price: '30'
+      price: 25.1
     },
     {
       id: 2,
       label: 'double chicken-burger with chicken',
-      price: '20'
+      price: 25.1
     }
   ],
   location: "nobody knows, cause we have Mac",

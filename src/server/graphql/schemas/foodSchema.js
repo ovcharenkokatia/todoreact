@@ -29,7 +29,7 @@ let {nodeInterface, nodeField} = nodeDefinitions(
     let {type, id} = fromGlobalId(globalId);
     if (type === 'FoodPlaceType') {
       return getFoodPlaceType(id);
-    } else if (type === 'Places') {
+    } else if (type === 'placesDescriptions') {
       return getPlace(id);
     } else {
       return null;
@@ -50,7 +50,18 @@ let placesDescriptions = new GraphQLObjectType({
       description: 'The name of the ship.'
     },
     menu: {
-      type: GraphQLString
+      type: GraphQLString,
+      fields: () => ({
+        id: {
+          type: GraphQLString
+        },
+        label: {
+          type: GraphQLString
+        },
+        price: {
+          type: GraphQLFloat
+        }
+      })
     },
     location: {
       type: GraphQLString

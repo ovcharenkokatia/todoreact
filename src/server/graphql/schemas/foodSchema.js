@@ -84,10 +84,12 @@ let foodPlaceType = new GraphQLObjectType ({
       type: placesDescriptionsConnection,
       description: "Descriptions of the places",
       args: connectionArgs,
-      resolve: (place, args) => connectionFromArray(
-        place.places.map((id) => getPlace(id)),
-        args
-      )
+      resolve: (placeType, args) => {
+        return connectionFromArray(
+            placeType.places.map((id) => getPlace(id)),
+            args
+        )
+      }
     }
   }),
   interfaces: [nodeInterface]

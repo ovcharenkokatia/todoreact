@@ -36,7 +36,7 @@ let {nodeInterface, nodeField} = nodeDefinitions(
     }
   },
   (obj) => {
-    return obj.places ? foodPlaceType : placesDescription;
+    return obj.places ? foodPlaceType : placesDescriptions;
   }
 );
 
@@ -71,7 +71,7 @@ let foodPlaceType = new GraphQLObjectType ({
       description: 'The name of the place.'
     },
     places: {
-      type: placeNamesConnection,
+      type: placesDescriptionsConnection,
       description: "The names of the places of the selected type",
       args: connectionArgs,
       resolve: (place, args) => connectionFromArray(
@@ -84,7 +84,7 @@ let foodPlaceType = new GraphQLObjectType ({
 });
 
 //connection
-let {connectionType: placeNamesConnection} =
+let {connectionType: placesDescriptionsConnection} =
   connectionDefinitions(
     {
       name: 'placesDescriptions',

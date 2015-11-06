@@ -1,5 +1,4 @@
-import React from 'react';
-import {render} from 'react-dom';
-import App from './src/client/app.js';
-
-render(<App />, document.getElementById('app'));
+require('babel/register')({
+  stage: 0
+});
+require('./src/server/server.js');

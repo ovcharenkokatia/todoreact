@@ -112,3 +112,15 @@ export function getFastFood() {
 export function getRestaurant() {
   return restaurants;
 }
+
+let startId = '5';
+
+export function createPlaceDescription(placeName, foodPlaceTypeId) {
+  let newPlaceDescription = {
+    id: '' + (startId++),
+    name: placeName
+  };
+  data.Places[newPlaceDescription.id] = newPlaceDescription;
+  data.FoodPlaceTypes[foodPlaceTypeId].places.push(newPlaceDescription.id);
+  return newPlaceDescription;
+}

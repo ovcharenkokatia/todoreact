@@ -1,43 +1,46 @@
 import {
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLList,
-  GraphQLFloat,
-  GraphQLNonNull
+    GraphQLSchema,
+    GraphQLObjectType,
+    GraphQLString,
+    GraphQLList,
+    GraphQLFloat,
+    GraphQLNonNull,
+    GraphQLID
 } from 'graphql';
 
 import {
-  nodeDefinitions,
-  connectionDefinitions,
-  globalIdField,
-  connectionArgs,
-  fromGlobalId,
-  connectionFromArray
+    nodeDefinitions,
+    connectionDefinitions,
+    globalIdField,
+    connectionArgs,
+    fromGlobalId,
+    connectionFromArray,
+    mutationWithClientMutationId
 } from 'graphql-relay';
 
 import {
-  getPlace,
-  getFoodPlaceType,
-  getFastFood,
-  getRestaurant,
+    createPlaceDescription,
+    getPlace,
+    getFoodPlaceType,
+    getFastFood,
+    getRestaurant,
 } from '../../foodPlacesData.js';
 
 //interface
 let {nodeInterface, nodeField} = nodeDefinitions(
-  (globalId) => {
-    let {type, id} = fromGlobalId(globalId);
-    if (type === 'FoodPlaceType') {
-      return getFoodPlaceType(id);
-    } else if (type === 'placesDescriptions') {
-      return getPlace(id);
-    } else {
-      return null;
+    (globalId) => {
+      let {type, id} = fromGlobalId(globalId);
+      if (type === 'FoodPlaceType') {
+        return getFoodPlaceType(id);
+      } else if (type === 'placesDescriptions') {
+        return getPlace(id);
+      } else {
+        return null;
+      }
+    },
+    (obj) => {
+      return obj.places ? foodPlaceType : placesDescriptions;
     }
-  },
-  (obj) => {
-    return obj.places ? foodPlaceType : placesDescriptions;
-  }
 );
 
 let placesDescriptions = new GraphQLObjectType({
@@ -72,7 +75,7 @@ let placesDescriptions = new GraphQLObjectType({
   interfaces: [nodeInterface]
 });
 
-let foodPlaceType = new GraphQLObjectType ({
+let foodPlaceType = new GraphQLObjectType({
   name: "foodPlaceType",
   fields: () => ({
     id: globalIdField('foodPlaceType'),
@@ -97,12 +100,12 @@ let foodPlaceType = new GraphQLObjectType ({
 
 //connection
 let {connectionType: placesDescriptionsConnection} =
-  connectionDefinitions(
-    {
-      name: 'placesDescriptions',
-      nodeType: placesDescriptions
-    }
-  );
+    connectionDefinitions(
+        {
+          name: 'placesDescriptions',
+          nodeType: placesDescriptions
+        }
+    );
 
 //query type
 let queryType = new GraphQLObjectType({
@@ -120,9 +123,78 @@ let queryType = new GraphQLObjectType({
   })
 });
 
+let test = mutationWithClientMutationId({
+  name: 'test',
+  inputFields: {
+    value: {
+      type: GraphQLString
+    }
+  },
+  outputFields: {
+    newValue: {
+      type: GraphQLString,
+      resolve() {
+        return 'aaaa'
+      }
+    }
+  },
+  mutateAndGetPayload: ({}) => {
+    return {
+      value: 'asdasd'
+    };
+  }
+});
+
+  let placeDescriptionMutation = mutationWithClientMutationId({
+  name: "placeDescriptionCreation",
+  inputFields: {
+    name: {
+      type: new GraphQLNonNull(GraphQLString)
+    },
+    menu: {
+      type: GraphQLString
+    },
+    location: {
+      type: GraphQLString
+    },
+    contacts: {
+      type: GraphQLString
+    },
+    typeId: {
+      type: new GraphQLNonNull(GraphQLID)
+    }
+  },
+  outputFields: {
+    placeDescription: {
+      type: placesDescriptions,
+      resolve: (payload) => getPlace(payload.placeId)
+    },
+    foodPlace: {
+      type: foodPlaceType,
+      resolve: (payload) => getFoodPlaceType(payload.placeTypeId)
+    }
+  },
+  mutateAndGetPayload: ({name, menu, location, contacts, typeId}) => {
+    let newPlaceDescription = createPlaceDescription(name, menu, location, contacts, typeId);
+    return {
+      placeId : newPlaceDescription.id,
+      placeTypeId: typeId
+    }
+  }
+});
+
+let mutationType = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: () => ({
+    createNewPlace: placeDescriptionMutation,
+    test: test
+  })
+});
+
 //schema
 let foodSchema = new GraphQLSchema({
-  query: queryType
+  query: queryType,
+  mutation: mutationType
 });
 
 module.exports = foodSchema;

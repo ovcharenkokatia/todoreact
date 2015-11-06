@@ -29,7 +29,7 @@ class Todo extends Component {
     return (
         <div>
           <h3>My List</h3>
-          <TodoList todos={this.state.todoItems}/>
+          <TodoList todos={this.state.todoItems} />
           <TodoInput />
         </div>
     );

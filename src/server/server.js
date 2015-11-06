@@ -2,13 +2,13 @@ import express from 'express';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import config from './webpack.config.js';
+import config from './../../webpack.config.js';
 import path from 'path';
 
-import Schema from './src/server/graphql/schemas/todoSchema.js';
+import Schema from './graphql/schemas/todoSchema.js';
 import expressGraphql from 'express-graphql';
 
-import foodSchema from './src/server/graphql/schemas/foodSchema.js';
+import foodSchema from './graphql/schemas/foodSchema.js';
 
 const port = 3000;
 const app = express();
@@ -26,7 +26,7 @@ app.use('/graphql', expressGraphql({
 app.use(webpackHotMiddleware(compiler));
 
 app.get('*', function response(req, res) {
-  res.sendFile(path.join(__dirname, 'assets/index.html'));
+  res.sendFile(path.join(__dirname, '../../assets/index.html'));
 });
 
 app.listen(port, 'localhost', function onStart(err) {

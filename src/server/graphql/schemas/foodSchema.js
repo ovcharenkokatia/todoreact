@@ -43,27 +43,38 @@ let {nodeInterface, nodeField} = nodeDefinitions(
     }
 );
 
+let itemType = new GraphQLObjectType({
+  name: "menuType",
+  fields: () => ({
+    label: {
+      type: GraphQLString
+    },
+    price: {
+      type: GraphQLFloat
+    }
+  })
+});
+
 let placesDescriptions = new GraphQLObjectType({
   name: 'placesDescriptions',
   description: 'places descriptions of different types',
+
   fields: () => ({
     id: globalIdField('placesDescriptions'),
     name: {
       type: GraphQLString
     },
-    menu: {
-      type: GraphQLString,
-      fields: () => ({
-        id: {
-          type: GraphQLString
-        },
-        label: {
-          type: GraphQLString
-        },
-        price: {
-          type: GraphQLFloat
-        }
-      })
+    menuViewer: {
+      type: new GraphQLList(itemType),
+      resolve(place) {
+        let array = place.menu.map((item) => {
+          return {
+            label: item.label,
+            price: item.price
+          }
+        });
+        return array;
+      }
     },
     location: {
       type: GraphQLString
@@ -151,9 +162,6 @@ let test = mutationWithClientMutationId({
     name: {
       type: new GraphQLNonNull(GraphQLString)
     },
-    menu: {
-      type: GraphQLString
-    },
     location: {
       type: GraphQLString
     },
@@ -183,10 +191,39 @@ let test = mutationWithClientMutationId({
   }
 });
 
+let createMenuItemMutation = mutationWithClientMutationId({
+  name: "createMenuItem",
+  inputFields: {
+    placeId: {
+      type: new GraphQLNonNull(GraphQLString)
+    },
+    label: {
+      type: GraphQLString
+    },
+    price: {
+      type: GraphQLFloat
+    }
+  },
+  outputFields: {
+    menuItem: {
+      type: itemType,
+      resolve: (payload) => getPlace(payload.placeId)
+    }
+  },
+  mutateAndGetPayload: ({menuItem}) => {
+    let newMenuItem = createMenuItem(menuItem);
+    console.log(menuItem);
+    return {
+      placeId: newMenuItem.id
+    };
+  }
+});
+
 let mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     createNewPlace: placeDescriptionMutation,
+    createMenuItem: createMenuItemMutation,
     test: test
   })
 });

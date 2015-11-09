@@ -113,7 +113,8 @@ export function getRestaurant() {
   return restaurants;
 }
 
-let startId = '5';
+let startId = 5;
+let startMenuId = 3;
 
 export function createPlaceDescription(placeName, foodPlaceTypeId) {
   let newPlaceDescription = {
@@ -123,4 +124,16 @@ export function createPlaceDescription(placeName, foodPlaceTypeId) {
   data.Places[newPlaceDescription.id] = newPlaceDescription;
   data.FoodPlaceTypes[foodPlaceTypeId].places.push(newPlaceDescription.id);
   return newPlaceDescription;
+}
+
+export function createMenuItem(newMenuItem) {
+  console.log(newMenuItem);
+
+  let newMenuItem = {
+    id: '' + (startMenuId++),
+    label: newMenuItem.itemLabel,
+    price: newMenuItem.itemPrice
+  };
+
+  data.Places.placeDescription[id].menu.push(newMenuItem);
 }

@@ -126,14 +126,12 @@ export function createPlaceDescription(placeName, foodPlaceTypeId) {
   return newPlaceDescription;
 }
 
-export function createMenuItem(newMenuItem) {
-  console.log(newMenuItem);
-
+export function createMenuItem(placeId, label, price) {
   let newMenuItem = {
     id: '' + (startMenuId++),
-    label: newMenuItem.itemLabel,
-    price: newMenuItem.itemPrice
+    label: label,
+    price: price
   };
 
-  data.Places.placeDescription[id].menu.push(newMenuItem);
+  data.Places[placeId].menu.push(newMenuItem);
 }

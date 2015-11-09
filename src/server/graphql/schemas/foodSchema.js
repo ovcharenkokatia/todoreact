@@ -24,6 +24,7 @@ import {
     getFoodPlaceType,
     getFastFood,
     getRestaurant,
+    createMenuItem
 } from '../../foodPlacesData.js';
 
 //interface
@@ -205,16 +206,15 @@ let createMenuItemMutation = mutationWithClientMutationId({
     }
   },
   outputFields: {
-    menuItem: {
-      type: itemType,
-      resolve: (payload) => getPlace(payload.placeId)
+    placeDescription: {
+      type: placesDescriptions,
+      resolve: (payload) => getPlace(payload.id)
     }
   },
-  mutateAndGetPayload: ({menuItem}) => {
-    let newMenuItem = createMenuItem(menuItem);
-    console.log(menuItem);
+  mutateAndGetPayload: ({placeId, label, price}) => {
+    let newMenuItem = createMenuItem(placeId, label, price);
     return {
-      placeId: newMenuItem.id
+      id: placeId
     };
   }
 });

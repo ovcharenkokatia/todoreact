@@ -3,7 +3,7 @@ var webpack = require('webpack'),
 
 module.exports = {
   entry: [
-    "./src/client/index.js"
+    "./src/client/app.js"
   ],
   devtool: 'eval-source-map',
   output: {
